@@ -1,0 +1,460 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API Documentation",
+    "version" : "1.0"
+  },
+  "paths" : {
+    "/api/auth/login" : {
+      "post" : {
+        "summary" : "login",
+        "description" : "login",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "password", "username" ],
+                "type" : "object",
+                "properties" : {
+                  "username" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "password" : {
+                    "type" : "string",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "msg" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "token" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "user" : {
+                          "type" : "object",
+                          "properties" : {
+                            "id" : {
+                              "type" : "integer",
+                              "description" : "",
+                              "format" : "int64"
+                            },
+                            "username" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "realName" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "college" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "phone" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "email" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "roleId" : {
+                              "type" : "integer",
+                              "description" : "",
+                              "format" : "int64"
+                            },
+                            "roleCode" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "roleName" : {
+                              "type" : "string",
+                              "description" : ""
+                            },
+                            "status" : {
+                              "type" : "integer",
+                              "description" : ""
+                            },
+                            "overdueCount" : {
+                              "type" : "integer",
+                              "description" : ""
+                            },
+                            "createTime" : {
+                              "type" : "string",
+                              "description" : ""
+                            }
+                          },
+                          "description" : ""
+                        }
+                      },
+                      "description" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register" : {
+      "post" : {
+        "summary" : "register",
+        "description" : "register",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "password", "realName", "username" ],
+                "type" : "object",
+                "properties" : {
+                  "username" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "password" : {
+                    "maxLength" : 32,
+                    "minLength" : 6,
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "realName" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "college" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "phone" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "email" : {
+                    "type" : "string",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "msg" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "string",
+                      "description" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/info" : {
+      "get" : {
+        "summary" : "info",
+        "description" : "info",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "msg" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "object",
+                      "properties" : {
+                        "id" : {
+                          "type" : "integer",
+                          "description" : "",
+                          "format" : "int64"
+                        },
+                        "username" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "realName" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "college" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "phone" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "email" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "roleId" : {
+                          "type" : "integer",
+                          "description" : "",
+                          "format" : "int64"
+                        },
+                        "roleCode" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "roleName" : {
+                          "type" : "string",
+                          "description" : ""
+                        },
+                        "status" : {
+                          "type" : "integer",
+                          "description" : ""
+                        },
+                        "overdueCount" : {
+                          "type" : "integer",
+                          "description" : ""
+                        },
+                        "createTime" : {
+                          "type" : "string",
+                          "description" : ""
+                        }
+                      },
+                      "description" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/password" : {
+      "put" : {
+        "summary" : "updatePassword",
+        "description" : "updatePassword",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "newPassword", "oldPassword" ],
+                "type" : "object",
+                "properties" : {
+                  "oldPassword" : {
+                    "type" : "string",
+                    "description" : ""
+                  },
+                  "newPassword" : {
+                    "maxLength" : 32,
+                    "minLength" : 6,
+                    "type" : "string",
+                    "description" : ""
+                  }
+                },
+                "description" : ""
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "code" : {
+                      "type" : "integer",
+                      "description" : ""
+                    },
+                    "msg" : {
+                      "type" : "string",
+                      "description" : ""
+                    },
+                    "data" : {
+                      "type" : "string",
+                      "description" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "com.lab.vo.UserVO" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "username" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "realName" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "college" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "phone" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "email" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "roleId" : {
+            "type" : "integer",
+            "description" : "",
+            "format" : "int64"
+          },
+          "roleCode" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "roleName" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "status" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "overdueCount" : {
+            "type" : "integer",
+            "description" : ""
+          },
+          "createTime" : {
+            "type" : "string",
+            "description" : ""
+          }
+        },
+        "description" : ""
+      },
+      "com.lab.vo.LoginVO" : {
+        "type" : "object",
+        "properties" : {
+          "token" : {
+            "type" : "string",
+            "description" : ""
+          },
+          "user" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "integer",
+                "description" : "",
+                "format" : "int64"
+              },
+              "username" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "realName" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "college" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "phone" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "email" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "roleId" : {
+                "type" : "integer",
+                "description" : "",
+                "format" : "int64"
+              },
+              "roleCode" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "roleName" : {
+                "type" : "string",
+                "description" : ""
+              },
+              "status" : {
+                "type" : "integer",
+                "description" : ""
+              },
+              "overdueCount" : {
+                "type" : "integer",
+                "description" : ""
+              },
+              "createTime" : {
+                "type" : "string",
+                "description" : ""
+              }
+            },
+            "description" : ""
+          }
+        },
+        "description" : ""
+      }
+    }
+  }
+}
