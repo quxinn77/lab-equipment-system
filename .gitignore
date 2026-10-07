@@ -1,0 +1,29 @@
+# ==================== 后端 Java / Maven ====================
+backend/target/
+*.class
+*.jar
+*.war
+
+# 后端日志与运行日志
+*.log
+backend/logs/
+
+# 用户上传文件
+backend/upload-files/
+
+# 本地私有配置（含真实密码，相当于 Laravel 的 .env，禁止上传）
+backend/src/main/resources/application-local.yml
+
+# ==================== 前端 Node ====================
+node_modules/
+frontend/dist/
+
+# ==================== IDE / 编辑器 ====================
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# ==================== 系统文件 ====================
+.DS_Store
+Thumbs.db
