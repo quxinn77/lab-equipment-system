@@ -108,6 +108,7 @@ CREATE TABLE `device` (
   `original_value` DECIMAL(12,2)  DEFAULT NULL COMMENT '原值',
   `image_url`     VARCHAR(500)   DEFAULT NULL COMMENT '图片地址',
   `status`        VARCHAR(16)    NOT NULL DEFAULT 'IDLE' COMMENT 'IDLE空闲/BORROWED借出/REPAIRING维修中/SCRAPPED报废/RESERVED预留',
+  `total_qty`     INT            NOT NULL DEFAULT 1 COMMENT '总库存',
   `remark`        VARCHAR(255)   DEFAULT NULL,
   `deleted`       TINYINT        NOT NULL DEFAULT 0 COMMENT '逻辑删除',
   `create_time`   DATETIME       DEFAULT CURRENT_TIMESTAMP,

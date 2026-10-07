@@ -29,6 +29,8 @@ public class Device implements Serializable {
     private BigDecimal originalValue;
     private String imageUrl;
     private String status;
+    /** 总库存（默认1） */
+    private Integer totalQty;
     private String remark;
 
     /** 逻辑删除 */

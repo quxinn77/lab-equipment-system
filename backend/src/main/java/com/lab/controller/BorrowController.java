@@ -77,7 +77,7 @@ public class BorrowController {
     }
 
     @OpLog(module = "borrow", operation = "归还登记")
-    @RequireRole({RoleEnum.LAB_ADMIN, RoleEnum.SUPER_ADMIN})
+    // B1：不限制角色，Service 内校验申请人本人或管理员
     @PutMapping("/{id}/return")
     public Result<Void> returnDevice(@PathVariable Long id, @Valid @RequestBody ReturnDTO dto) {
         borrowService.returnDevice(id, dto);

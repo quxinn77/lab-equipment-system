@@ -41,11 +41,16 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (StrUtil.isBlank(auth) || !auth.startsWith("Bearer ")) {
             return writeError(response, 401, "未登录或token已失效");
         }
+        String token = auth.substring(7).trim();
         Claims claims;
         try {
-            claims = jwtUtil.parse(auth.substring(7).trim());
+            claims = jwtUtil.parse(token);
         } catch (Exception e) {
             return writeError(response, 401, "未登录或token已失效");
+        }
+        // B4：登出黑名单校验
+        if (jwtUtil.isBlacklisted(token)) {
+            return writeError(response, 401, "登录已失效，请重新登录");
         }
         Number userId = claims.get("userId", Number.class);
         String username = claims.get("username", String.class);

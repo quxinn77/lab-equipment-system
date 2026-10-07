@@ -48,4 +48,11 @@ public class AuthController {
         authService.updatePassword(dto);
         return Result.ok();
     }
+
+    @OpLog(module = "auth", operation = "退出登录")
+    @PostMapping("/logout")
+    public Result<Void> logout() {
+        authService.logout();
+        return Result.ok();
+    }
 }
