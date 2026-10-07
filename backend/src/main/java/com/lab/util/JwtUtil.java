@@ -8,9 +8,14 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class JwtUtil {
+
+    /** B4：登出失效 token 黑名单（单机内存版；分布式部署可替换为 Redis） */
+    private final Set<String> blacklist = ConcurrentHashMap.newKeySet();
 
     @Value("${lab.jwt-secret:lab-equipment-system-jwt-secret-2026}")
     private String secret;
@@ -37,5 +42,17 @@ public class JwtUtil {
                 .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    /** 将 token 加入黑名单（登出） */
+    public void blacklist(String token) {
+        if (token != null && !token.isEmpty()) {
+            blacklist.add(token);
+        }
+    }
+
+    /** token 是否在黑名单中 */
+    public boolean isBlacklisted(String token) {
+        return token != null && blacklist.contains(token);
     }
 }

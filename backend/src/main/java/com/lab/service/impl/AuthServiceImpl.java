@@ -20,6 +20,8 @@ import com.lab.util.JwtUtil;
 import com.lab.vo.LoginVO;
 import com.lab.vo.UserVO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -112,6 +114,19 @@ public class AuthServiceImpl implements AuthService {
         update.setId(userId);
         update.setPassword(BCrypt.hashpw(dto.getNewPassword()));
         userMapper.updateById(update);
+    }
+
+    @Override
+    public void logout() {
+        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attrs == null) {
+            return;
+        }
+        String auth = attrs.getRequest().getHeader("Authorization");
+        if (auth != null && auth.startsWith("Bearer ")) {
+            // B4：当前 token 加入黑名单，后续请求被拦截器拒绝
+            jwtUtil.blacklist(auth.substring(7).trim());
+        }
     }
 
     private UserVO buildUserVO(SysUser user) {

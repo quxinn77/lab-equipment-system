@@ -63,8 +63,17 @@ public class BorrowServiceImpl implements BorrowService {
         if (device == null) {
             throw new BusinessException("设备不存在");
         }
-        if (!"IDLE".equals(device.getStatus())) {
+        if ("REPAIRING".equals(device.getStatus()) || "SCRAPPED".equals(device.getStatus())) {
             throw new BusinessException("设备当前状态为 " + device.getStatus() + "，不可提交借用申请");
+        }
+        // B3：可借数 = 总库存 - (PENDING + APPROVED 的借用单数)
+        int totalQty = device.getTotalQty() == null ? 1 : device.getTotalQty();
+        Long occupied = borrowMapper.selectCount(new LambdaQueryWrapper<BorrowRecord>()
+                .eq(BorrowRecord::getDeviceId, device.getId())
+                .in(BorrowRecord::getStatus, java.util.Arrays.asList("PENDING", "APPROVED")));
+        int availableQty = totalQty - (occupied == null ? 0 : occupied.intValue());
+        if (availableQty <= 0) {
+            throw new BusinessException("该设备库存不足：总库存 " + totalQty + "，已全部被预约或借出");
         }
         if (dto.getStartTime() == null || dto.getDueTime() == null
                 || !dto.getStartTime().before(dto.getDueTime())) {
@@ -210,8 +219,18 @@ public class BorrowServiceImpl implements BorrowService {
         if (record == null) {
             throw new BusinessException("借用记录不存在");
         }
-        if (!"BORROWED".equals(record.getStatus()) && !"OVERDUE".equals(record.getStatus())) {
-            throw new BusinessException("该借用单当前状态不可归还：" + record.getStatus());
+        // B1：仅申请人本人或管理员可归还
+        boolean isAdmin = "LAB_ADMIN".equals(operator.getRoleCode())
+                || "SUPER_ADMIN".equals(operator.getRoleCode());
+        if (!isAdmin && !record.getUserId().equals(operator.getUserId())) {
+            throw new BusinessException("只能归还本人的借用记录");
+        }
+        // B2：允许 APPROVED 直接归还（配合去取件环节），兼容 BORROWED/OVERDUE
+        String recordStatus = record.getStatus();
+        if (!"APPROVED".equals(recordStatus)
+                && !"BORROWED".equals(recordStatus)
+                && !"OVERDUE".equals(recordStatus)) {
+            throw new BusinessException("该借用单当前状态不可归还：" + recordStatus);
         }
         String condition = dto.getCondition();
         if (!"INTACT".equals(condition) && !"DAMAGED".equals(condition)) {

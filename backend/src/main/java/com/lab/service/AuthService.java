@@ -15,4 +15,7 @@ public interface AuthService {
     UserVO info();
 
     void updatePassword(PasswordDTO dto);
+
+    /** 退出登录：当前 token 加入黑名单失效 */
+    void logout();
 }
