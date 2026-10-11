@@ -1,0 +1,9 @@
+Django>=4.2.17,<5.0
+django-ninja
+PyMySQL
+cryptography
+PyJWT
+django-environ
+django-cors-headers
+openpyxl
+qrcode[pil]
