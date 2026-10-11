@@ -1,18 +1,13 @@
-# ==================== 后端 Java / Maven ====================
-backend/target/
-*.class
-*.jar
-*.war
-
-# 后端日志与运行日志
-*.log
-backend/logs/
-
-# 用户上传文件
-backend/upload-files/
+# ==================== 后端 Django / Python ====================
+venv/
+__pycache__/
+*.py[cod]
+backend-django/venv/
+backend-django/media/
+backend-django/db.sqlite3
 
 # 本地私有配置（含真实密码，相当于 Laravel 的 .env，禁止上传）
-backend/src/main/resources/application-local.yml
+backend-django/.env
 
 # ==================== 前端 Node ====================
 node_modules/
