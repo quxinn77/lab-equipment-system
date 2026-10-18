@@ -71,6 +71,18 @@
           <el-table-column label="原值" min-width="100" align="right">
             <template #default="{ row }">{{ formatMoney(row.originalValue) }}</template>
           </el-table-column>
+          <el-table-column label="总库存" width="80" align="center">
+            <template #default="{ row }">{{ row.totalQty ?? 1 }}</template>
+          </el-table-column>
+          <!-- B6：可借数 > 0 显示"可借"，= 0 显示"已借完" -->
+          <el-table-column label="可借数" width="100" align="center">
+            <template #default="{ row }">
+              <el-tag v-if="(row.availableQty ?? 0) > 0" type="success" size="small">
+                可借 {{ row.availableQty }}
+              </el-tag>
+              <el-tag v-else type="danger" size="small">已借完</el-tag>
+            </template>
+          </el-table-column>
           <el-table-column label="状态" width="90" align="center">
             <template #default="{ row }">
               <StatusTag :map="DEVICE_STATUS" :value="row.status" />
